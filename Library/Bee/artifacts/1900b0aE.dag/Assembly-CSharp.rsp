@@ -345,9 +345,18 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.VSCode.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
-"Assets/Assets/Scripts/Hand.cs"
-"Assets/Assets/Scripts/HandControllder.cs"
+"Assets/Assets/Scripts/AxeController.cs"
+"Assets/Assets/Scripts/CloseWeapon.cs"
+"Assets/Assets/Scripts/CloseWeaponController.cs"
+"Assets/Assets/Scripts/CrossHair.cs"
+"Assets/Assets/Scripts/Gun.cs"
+"Assets/Assets/Scripts/GunController.cs"
+"Assets/Assets/Scripts/HandController.cs"
+"Assets/Assets/Scripts/HUD.cs"
+"Assets/Assets/Scripts/PickaxeController.cs"
 "Assets/Assets/Scripts/PlayerController.cs"
+"Assets/Assets/Scripts/WeaponManager.cs"
+"Assets/Assets/Scripts/WeaponSway.cs"
 -langversion:9.0
 
 /deterministic
