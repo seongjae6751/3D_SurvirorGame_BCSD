@@ -355,6 +355,8 @@
 "Assets/Assets/Scripts/HUD.cs"
 "Assets/Assets/Scripts/PickaxeController.cs"
 "Assets/Assets/Scripts/PlayerController.cs"
+"Assets/Assets/Scripts/Rock.cs"
+"Assets/Assets/Scripts/SoundManager.cs"
 "Assets/Assets/Scripts/WeaponManager.cs"
 "Assets/Assets/Scripts/WeaponSway.cs"
 -langversion:9.0
