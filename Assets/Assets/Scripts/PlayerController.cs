@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody myRigid;
     private GunController theGunController;
     private CrossHair theCrosshair;
+    private StatusController theStatusController;
 
 
     // Start is called before the first frame update
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviour
         myRigid = GetComponent<Rigidbody>();
         theCrosshair = FindObjectOfType<CrossHair>();
         theGunController = FindObjectOfType<GunController>();
+        theStatusController = FindObjectOfType<StatusController>();
         WeaponManager.isChangeWeapon = true;
 
         // 초기화
@@ -140,7 +142,7 @@ public class PlayerController : MonoBehaviour
     // 점프 시도
     private void TryJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGround)
+        if (Input.GetKeyDown(KeyCode.Space) && isGround && theStatusController.GetCurrentSP() > 0)
         {
             Jump();
         }
@@ -152,17 +154,18 @@ public class PlayerController : MonoBehaviour
         // 앉은 상태 해제
         if (isCrouch)
             Crouch();
+        theStatusController.DecreaseStamina(100);
         myRigid.velocity = transform.up * jumpForce;
     }
 
     // 달리기 시도
     private void TryRun()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && theStatusController.GetCurrentSP() > 0)
         {
             Running();
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        if (Input.GetKeyUp(KeyCode.LeftShift) || theStatusController.GetCurrentSP() <= 0)
         {
             RunningCancel();
         }
@@ -179,6 +182,7 @@ public class PlayerController : MonoBehaviour
 
         isRun = true;
         theCrosshair.RunningAnimation(isRun);
+        theStatusController.DecreaseStamina(10);
         applySpeed = runSpeed;
     }
 
