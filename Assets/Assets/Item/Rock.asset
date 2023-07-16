@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Rock
   m_EditorClassIdentifier: 
   itemName: Rock
-  itemType: 0
+  itemDesc: "\uB3CC\uC870\uAC01"
+  itemType: 2
   itemImage: {fileID: 21300000, guid: 536e259ce081dea48a57b489fa81c8a6, type: 3}
   itemPrefab: {fileID: 5507868414777199010, guid: 3c306a5af6869c34fba6e97c8494fd64, type: 3}
   weaponType: rock

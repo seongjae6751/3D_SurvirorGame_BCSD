@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Rock
   - Item
+  - WeakAnimal
+  - StrongAnimal
   layers:
   - Default
   - TransparentFX
@@ -19,7 +21,7 @@ TagManager:
   - weapon
   - 
   - Item
-  - 
+  - Player
   - 
   - 
   - 

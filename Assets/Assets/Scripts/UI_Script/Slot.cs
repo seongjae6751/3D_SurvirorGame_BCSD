@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class Slot : MonoBehaviour
+public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     public Item item; // 획득한 아이템
     public int itemCount; // 획득한 아이템의 개수
@@ -14,6 +15,13 @@ public class Slot : MonoBehaviour
     private Text text_Count;
     [SerializeField]
     private GameObject go_CountImage;
+
+    private ItemEffectDatabase theItemEffctDatabase;
+
+    void Start()
+    {
+        theItemEffctDatabase = FindObjectOfType<ItemEffectDatabase>();
+    }
 
     // 이미지 투명도 조절
     private void SetColor(float _alpha)
@@ -63,5 +71,81 @@ public class Slot : MonoBehaviour
 
         text_Count.text = "0";
         go_CountImage.SetActive(false);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if(eventData.button == PointerEventData.InputButton.Right)
+        {
+            if(item != null)
+            {
+                theItemEffctDatabase.UseItem(item);
+                if(item.itemType == Item.ItemType.Used)
+                    SetSlotCount(-1);
+                }
+        }
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if (item != null)
+        {
+            DragSlot.instance.dragSlot = this;
+            DragSlot.instance.DragSetImage(itemImage);
+
+            DragSlot.instance.transform.position = eventData.position;
+        }
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (item != null)
+        {
+            DragSlot.instance.transform.position = eventData.position;
+        }
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        DragSlot.instance.SetColor(0);
+        DragSlot.instance.dragSlot = null;
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        Debug.Log("OnEndDrag 호출됨");
+        
+        if (DragSlot.instance.dragSlot != null)
+        {
+            ChangeSlot();
+        }
+    }
+
+    private void ChangeSlot()
+    {
+        Item _tempItem = item;
+        int _tempItemCount = itemCount;
+
+        Additem(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
+
+        if(_tempItem != null)
+        {
+            DragSlot.instance.dragSlot.Additem(_tempItem, _tempItemCount);
+        }
+        else
+            DragSlot.instance.dragSlot.ClearSlot();
+    }
+    
+    // 마우스가 슬롯에 들어갈때 발동
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (item != null)
+            theItemEffctDatabase.ShowToolTip(item, transform.position);
+    }
+
+    // 슬롯에서 빠져나갈 때 발동
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        theItemEffctDatabase.HideToolTip();
     }
 }

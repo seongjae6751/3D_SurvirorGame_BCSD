@@ -53,7 +53,6 @@ public class Inventory : MonoBehaviour
     {
         if (Item.ItemType.Equipment != _item.itemType)
         {
-            Debug.Log("아이템 같음");
             for (int i = 0; i < slots.Length; i++)
             {
                 if (slots[i].item != null)
